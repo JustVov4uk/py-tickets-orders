@@ -75,7 +75,7 @@ class MovieSessionListSerializer(MovieSessionSerializer):
             "ticket_available"
         )
 
-    def get_tickets_available(self, obj):
+    def get_ticket_available(self, obj):
         return obj.cinema_hall.capacity - obj.tickets.count()
 
 
