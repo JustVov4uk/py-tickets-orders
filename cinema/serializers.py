@@ -75,7 +75,7 @@ class MovieSessionListSerializer(MovieSessionSerializer):
             "tickets_available"
         )
 
-    def get_ticket_available(self, obj):
+    def get_tickets_available(self, obj):
         return obj.cinema_hall.capacity - obj.tickets.count()
 
 
@@ -113,14 +113,14 @@ class TicketCreateSerializer(serializers.ModelSerializer):
         fields = ("row", "seat", "movie_session")
 
     def validate(self, data):
-        row = data["row"],
-        seat = data["seat"],
+        row = data["row"]
+        seat = data["seat"]
         movie_session = data["movie_session"]
         cinema_hall = movie_session.cinema_hall
 
-        if not (1 <= row <= cinema_hall.row):
+        if not (1 <= row <= cinema_hall.rows):
             raise serializers.ValidationError(
-                f"row must be between 1 and {cinema_hall.row}"
+                f"row must be between 1 and {cinema_hall.rows}"
             )
         if not (1 <= seat <= cinema_hall.seats_in_row):
             raise serializers.ValidationError(

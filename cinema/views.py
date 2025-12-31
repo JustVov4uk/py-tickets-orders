@@ -46,12 +46,12 @@ class MovieViewSet(viewsets.ModelViewSet):
         actors = self.request.query_params.get("actors")
         if actors:
             actors_ids = [int(id_) for id_ in actors.split(",")]
-            queryset = queryset.filter(actors__id=actors_ids)
+            queryset = queryset.filter(actors__id__in=actors_ids)
 
         genres = self.request.query_params.get("genres")
         if genres:
             genres_ids = [int(id_) for id_ in genres.split(",")]
-            queryset = queryset.filter(genres__id=genres_ids)
+            queryset = queryset.filter(genres__id__in=genres_ids)
 
         title = self.request.query_params.get("title")
         if title:
